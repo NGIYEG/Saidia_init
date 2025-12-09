@@ -5,22 +5,36 @@ import json
 
 from django.contrib import messages
 from .models import Contact
-from .forms import ContactForm
+from .forms import ContactForm ,SupporterForm
 
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
-def index(request):
-    return render(request, 'index.html')
+
 def about(request):
     return render(request, 'about.html')
 
 
 def programmes(request):
     return render(request, 'program.html')
+
 def support(request):
-    return render(request, 'support.html')
+    if request.method == 'POST':
+        form = SupporterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # This message will now appear on the index page
+            messages.success(request, 'Thank you! Your partnership request has been submitted.')
+            
+            # CHANGE THIS LINE:
+            return redirect('home') 
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = SupporterForm()
+    
+    return render(request, 'support.html', {'form': form})
 
 
 def contact(request):

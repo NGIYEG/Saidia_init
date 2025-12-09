@@ -6,8 +6,8 @@ from . import views
 
 # app_name = "Saidia"
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('home/', views.home, name='home'), 
+   
+    path('', views.home, name='home'), 
      path('about/', views.about, name='about'),
      path('contact/', views.contact, name='contact'),
      path('programmes/', views.programmes, name='programmes'),

@@ -1,15 +1,22 @@
 from django.db import models
 
 # Create your models here.
+# models.py
+from django.db import models
+
 class Supporter(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=15)
-   
+    
+    # Add these three boolean fields to store the support choices
+    is_financial_supporter = models.BooleanField(default=False, verbose_name="Financial Support")
+    is_mentor = models.BooleanField(default=False, verbose_name="Mentorship")
+    is_child_sponsor = models.BooleanField(default=False, verbose_name="Child Sponsorship")
 
     def __str__(self):
-        return self.first_name
+        return f"{self.first_name} {self.last_name}"
 
 class Contact(models.Model):
     firstname = models.CharField(max_length=100)

@@ -1,15 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Forms</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-background">
+{% block content %}
 <section id="get-involved" class="py-20 bg-background">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -230,38 +222,45 @@
                 </h2>
             </div>
         </div>
-        <div class="max-w-4xl mx-auto p-8 shadow-large border bg-card rounded-lg">
-            <form onsubmit="handleFormSubmit(event)" class="space-y-8">
-                <div>
-                    <h4 class="text-xl font-semibold mb-6">How would you like to support?</h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
-                            <input type="checkbox" class="h-4 w-4 rounded border-primary text-primary mt-1">
-                            <span class="text-sm font-medium">Financial Support</span>
-                        </label>
-                        <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
-                            <input type="checkbox" class="h-4 w-4 rounded border-primary text-primary mt-1">
-                            <span class="text-sm font-medium">Mentorship</span>
-                        </label>
-                        <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
-                            <input type="checkbox" class="h-4 w-4 rounded border-primary text-primary mt-1">
-                            <span class="text-sm font-medium">Child Sponsorship</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <input type="text" placeholder="First Name" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
-                    <input type="text" placeholder="Last Name" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
-                    <input type="email" placeholder="Email" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
-                    <input type="tel" placeholder="Phone" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit" class="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center">
-                        Send Message <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-                    </button>
-                </div>
-            </form>
+    <div class="max-w-4xl mx-auto p-8 shadow-large border bg-card rounded-lg">
+<form method="POST" action="{% url 'support' %}" class="space-y-8">
+    {% csrf_token %} <div>
+        <h4 class="text-xl font-semibold mb-6">How would you wish to influence community's growth?</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
+                <input type="checkbox" name="is_financial_supporter" class="h-4 w-4 rounded border-primary text-primary mt-1">
+                <span class="text-sm font-medium">Financial partnership</span>
+            </label>
+            
+            <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
+                <input type="checkbox" name="is_mentor" class="h-4 w-4 rounded border-primary text-primary mt-1">
+                <span class="text-sm font-medium">Through Mentorship Programmes</span>
+            </label>
+            
+            <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
+                <input type="checkbox" name="is_child_sponsor" class="h-4 w-4 rounded border-primary text-primary mt-1">
+                <span class="text-sm font-medium">Through Child Sponsorship</span>
+            </label>
         </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <input type="text" name="first_name" placeholder="First Name" required class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+        
+        <input type="text" name="last_name" placeholder="Last Name" required class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+        
+        <input type="email" name="email" placeholder="Email" required class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+        
+        <input type="tel" name="phone_number" placeholder="Phone" required class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+    </div>
+
+    <div class="flex justify-center">
+        <button type="submit" class="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center">
+            Submit <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+        </button>
+    </div>
+</form>
+    </div>
     </div>
 </section>
 
@@ -403,5 +402,4 @@
             lucide.createIcons();
         });
     </script>
-</body>
-</html>
+{% endblock %}

@@ -1,57 +1,308 @@
+{% extends 'base.html' %}
 {% load static %}
-<section id="home" class="min-h-screen relative flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="{% static 'images/hero-education.jpg' %}" 
-                 alt="Children learning in Kilifi" 
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/70 to-blue-500/60"></div>
+
+{% block content %}
+
+<style>
+    /* Local section styles only — avoid global overrides */
+    #home {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1729 100%);
+    }
+
+    .particles,
+    .grid-background,
+    .orb {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .particles { overflow: hidden; z-index: 1; }
+    .particle {
+        position: absolute;
+        background: radial-gradient(circle, rgba(16,68,157,0.6) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: .3; }
+        25% { transform: translateY(-100px) translateX(50px) scale(1.2); opacity: .6; }
+        50% { transform: translateY(-50px) translateX(-50px) scale(.8); opacity: .4; }
+        75% { transform: translateY(-150px) translateX(100px) scale(1.1); opacity: .5; }
+    }
+
+    .grid-background {
+        background-image:
+            linear-gradient(rgba(16,68,157,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(16,68,157,0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+        z-index: 1;
+    }
+
+    @keyframes gridMove {
+        0% { transform: translate(0,0); }
+        100% { transform: translate(50px,50px); }
+    }
+
+    .orb {
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: .3;
+        animation: orbFloat 15s infinite ease-in-out;
+        z-index: 1;
+    }
+    .orb-1 { width: 400px; height: 400px; background: radial-gradient(circle, #10449D, transparent); top: 10%; left: 10%; }
+    .orb-2 { width: 300px; height: 300px; background: radial-gradient(circle, #0ea5e9, transparent); bottom: 10%; right: 10%; animation-delay: 5s; }
+
+    @keyframes orbFloat {
+        0%,100% { transform: translate(0,0) scale(1); }
+        50% { transform: translate(100px,-100px) scale(1.2); }
+    }
+
+    .content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 1200px;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .75rem 1.5rem;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 50px;
+        color: white;
+        font-size: .875rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        animation: fadeInDown 1s ease-out, pulse 2s infinite;
+        box-shadow: 0 8px 32px rgba(16,68,157,0.3);
+    }
+
+    @keyframes pulse {
+        0%,100% { box-shadow: 0 8px 32px rgba(16,68,157,0.3); }
+        50% { box-shadow: 0 8px 32px rgba(16,68,157,0.6); }
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out .2s backwards;
+    }
+
+    .gradient-text {
+        background: linear-gradient(90deg, #60a5fa, #06b6d4, #60a5fa);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 3s linear infinite;
+    }
+
+    @keyframes gradientShift {
+        to { background-position: 200% center; }
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .stat-card {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 2rem 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: .4s;
+        animation: fadeInUp 1s ease-out backwards;
+    }
+
+    .stat-card:nth-child(1) { animation-delay: .4s; }
+    .stat-card:nth-child(2) { animation-delay: .6s; }
+    .stat-card:nth-child(3) { animation-delay: .8s; }
+
+    .stat-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: rgba(16,68,157,0.5);
+        box-shadow: 0 20px 40px rgba(16,68,157,0.3);
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #10449D, #0ea5e9);
+        border-radius: 12px;
+        animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .stat-label {
+        color: rgba(255,255,255,0.7);
+        font-size: .875rem;
+    }
+
+    .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        text-decoration: none;
+        transition: .3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #10449D, #0ea5e9);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+   
+
+    @keyframes bounce {
+        0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+        40% { transform: translateX(-50%) translateY(-8px); }
+        60% { transform: translateX(-50%) translateY(-4px); }
+    }
+
+    @media(max-width: 768px) {
+        .btn { width: 100%; justify-content: center; }
+        .cta-buttons { flex-direction: column; }
+    }
+</style>
+
+
+<section id="home">
+    <div class="particles" id="particles"></div>
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="content">
+        <div class="badge">
+            <i data-lucide="heart"></i>
+            <span>Making a Difference Since 2018</span>
         </div>
 
-        <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white pt-16">
-            <div class="max-w-4xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-8">
-                    <i data-lucide="heart" class="w-4 h-4"></i>
-                    <span class="text-sm font-medium"></span>
-                </div>
+        <h1>
+            Empowering vulnerable communities through education &
+            <span class="gradient-text">support</span>
+        </h1>
 
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                    Empowering vulnerable communities through education &
-                    <span class="bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent"> support</span>
-                </h1>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="users"></i></div>
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Lives Transformed</span>
+            </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                        <div class="flex items-center justify-center mb-2">
-                            <i data-lucide="users" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <div class="text-2xl font-bold mb-1">500+</div>
-                        <div class="text-sm text-white/80">Lives Transformed</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                        <div class="flex items-center justify-center mb-2">
-                            <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <div class="text-2xl font-bold mb-1">150+</div>
-                        <div class="text-sm text-white/80">Students Supported</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                        <div class="flex items-center justify-center mb-2">
-                            <i data-lucide="heart" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <div class="text-2xl font-bold mb-1">50+</div>
-                        <div class="text-sm text-white/80">Mothers Empowered</div>
-                    </div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="graduation-cap"></i></div>
+                <span class="stat-number">150+</span>
+                <span class="stat-label">Students Supported</span>
+            </div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-                    <button class="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-11 px-8 border border-white/40 bg-transparent text-white hover:bg-white/20 hover:border-white/60 w-full sm:w-auto transition-all">
-                      <a href="#about"> Learn More</a> 
-                    </button>
-                    <button class="inline-flex items-center justify-center gap-2 rounded-xl text-lg font-semibold h-11 px-8 py-6 bg-gradient-hero text-white shadow-lg hover:scale-105 transform transition-all duration-300 w-full sm:w-auto">
-                       <a href="#get-involved">Donate Now</a> 
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </button>
-                </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="heart"></i></div>
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Mothers Empowered</span>
             </div>
         </div>
-    </section>
+
+        <div class="cta-buttons">
+            <a href="{% url 'about' %}" class="btn btn-secondary">Learn More</a>
+            <a href="{% url 'support' %}" class="btn btn-primary">
+                Donate Now <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <i data-lucide="chevron-down" style="width:32px;height:32px;"></i>
+    </div>
+</section>
+
+<script>
+    lucide.createIcons();
+
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 100 + 50;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 20 + 's';
+        p.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particlesContainer.appendChild(p);
+    }
+</script>
+
+{% endblock %}
