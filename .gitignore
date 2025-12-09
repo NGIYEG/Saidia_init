@@ -1,0 +1,30 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db.sqlite3
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# Environments (Add your specific env name here)
+.env
+.venv
+env/
+venv/
+ENV/
+sedenv/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
