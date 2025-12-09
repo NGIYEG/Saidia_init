@@ -1,0 +1,122 @@
+
+{% load static %}
+
+
+
+
+<section id="programs" class="py-20 bg-gray-50 ">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+                <i data-lucide="heart" class="w-4 h-4 text-primary"></i>
+                <span class="text-sm font-medium text-primary">Our Impact</span>
+            </div>
+            <div class="heading-wrapper">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                    Programs That <span class="text-primary">Transform Lives</span>
+                </h2>
+            </div>
+            <p class="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Through targeted programs and community partnerships, we're creating lasting change in the lives of orphans, vulnerable children, and young mothers in Kilifi.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="rounded-lg border bg-card p-8 hover:shadow-medium transition-all duration-300">
+                <div class="flex items-start gap-6">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-gradient-hero rounded-xl flex items-center justify-center shadow-soft">
+                            <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-3">Education Support</h3>
+                        <p class="text-muted-foreground mb-4">Providing school fees, uniforms, and books for vulnerable children.</p>
+                        <div class="flex gap-4 text-sm">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full">150+ students</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-lg border bg-card p-8 hover:shadow-medium transition-all duration-300">
+                <div class="flex items-start gap-6">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-gradient-hero rounded-xl flex items-center justify-center shadow-soft">
+                            <i data-lucide="baby" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-3">Young Mothers</h3>
+                        <p class="text-muted-foreground mb-4">Skills training and income-generating opportunities.</p>
+                        <div class="flex gap-4 text-sm">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full">50+ mothers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <img src="{% static 'images/programs-impact.jpg' %}" 
+                     alt="Educational programs and community support" 
+                     class="w-full rounded-2xl shadow-large object-cover">
+            </div>
+            <div class="order-1 lg:order-2">
+                <h3 class="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+                    Every Child Deserves a <span class="text-primary">Chance to Succeed</span>
+                </h3>
+                <p class="text-muted-foreground mb-6 leading-relaxed">
+                    Your support helps us provide comprehensive care, education, and opportunities that break the cycle of poverty and create brighter futures for vulnerable children and families.
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                        <span class="text-sm text-foreground">Educational scholarships and supplies</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                        <span class="text-sm text-foreground">Skills training and mentorship</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                        <span class="text-sm text-foreground">Healthcare and nutrition support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .heading-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .heading-wrapper h2 {
+        position: relative;
+        padding-bottom: 1.5rem;
+        display: inline-block;
+    }
+
+    .heading-wrapper h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 5px;
+        background: linear-gradient(90deg, #10449D, #0ea5e9);
+        border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+        .heading-wrapper h2::after {
+            width: 60px;
+            height: 4px;
+        }
+    }
+</style>

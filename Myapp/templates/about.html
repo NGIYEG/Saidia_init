@@ -1,0 +1,98 @@
+
+{% load static %}
+
+
+
+<section id="about" class="py-20 bg-background mt-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+                <i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>
+                <span class="text-sm font-medium text-primary">About Us</span>
+            </div>
+            <div class="heading-wrapper">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                    Building Brighter Futures in <span class="text-primary">Kilifi, Kenya</span>
+                </h2>
+            </div>
+            <p class="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Saidia Education Centre Foundation is a registered charitable organization dedicated to transforming lives through education, mentorship, and community development.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
+            <div>
+                <img src="{% static 'images/community-support.jpg' %}" 
+                     alt="Community Support" 
+                     class="w-full rounded-2xl shadow-large object-cover">
+            </div>
+            <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+                    Our Story of <span class="text-primary">Hope and Transformation</span>
+                </h3>
+                <div class="space-y-4 text-muted-foreground leading-relaxed">
+                    <p>Founded in 2018, Saidia Education Centre Foundation emerged from a deep commitment to address the educational and social challenges facing orphans and vulnerable children.</p>
+                    <p>We recognized that education is the most powerful tool for breaking the cycle of poverty. Through our comprehensive programs, we provide not just educational support, but also mentorship and life skills.</p>
+                    <p>Today, we're proud to have transformed hundreds of lives and strengthened entire communities through our holistic approach to development and empowerment.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-8 text-center hover:shadow-medium transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-hero rounded-xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                    <i data-lucide="target" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-foreground mb-4">Our Mission</h3>
+                <p class="text-muted-foreground">To transform lives through education, mentorship, and community empowerment.</p>
+            </div>
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-8 text-center hover:shadow-medium transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-hero rounded-xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                    <i data-lucide="award" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-foreground mb-4">Our Vision</h3>
+                <p class="text-muted-foreground">A community where every child has access to quality education.</p>
+            </div>
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-8 text-center hover:shadow-medium transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-hero rounded-xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                    <i data-lucide="users" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-foreground mb-4">Our Values</h3>
+                <p class="text-muted-foreground">Compassion, integrity, empowerment, community partnership, and sustainable development.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .heading-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .heading-wrapper h2 {
+        position: relative;
+        padding-bottom: 1.5rem;
+        display: inline-block;
+    }
+
+    .heading-wrapper h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 5px;
+        background: linear-gradient(90deg, #10449D, #0ea5e9);
+        border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+        .heading-wrapper h2::after {
+            width: 60px;
+            height: 4px;
+        }
+    }
+</style>

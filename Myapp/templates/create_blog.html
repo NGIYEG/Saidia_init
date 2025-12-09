@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create Blog Post{% endblock %}
+
+{% block content %} 
+<form method="POST" enctype="multipart/form-data" class="space-y-6">
+    {% csrf_token %}
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div>
+        <label class="block mb-2 font-semibold">Title</label>
+        <input type="text" name="tittle" required 
+               value="{{ form.tittle.value|default:'' }}"
+               class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+    </div>
+    
+    <div>
+        <label class="block mb-2 font-semibold">Author</label>
+        <input type="text" name="author" required 
+               value="{{ form.author.value|default:'' }}"
+               class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+    </div>
+    
+    <div>
+        <label class="block mb-2 font-semibold">Content</label>
+        <textarea name="content" rows="10" required 
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">{{ form.content.value|default:'' }}</textarea>
+    </div>
+    
+    <div>
+        <label class="block mb-2 font-semibold">Blog Image</label>
+        <input type="file" name="blogimage" accept="image/*" required
+               class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+    </div>
+    
+    {% if form.errors %}
+        <div class="p-4 rounded-lg bg-red-100 text-red-700">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <button type="submit" class="w-full py-4 bg-gradient-hero text-white font-bold rounded-xl shadow-lg hover:scale-[1.01] transition">
+        Create Blog Post
+    </button>
+</form>
+{% endblock %}

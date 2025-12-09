@@ -1,0 +1,313 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Saidia Education Centre Foundation{% endblock %}</title>
+
+    {% tailwind_css %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        .heading-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .heading-wrapper h2 {
+            position: relative;
+            padding-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .heading-wrapper h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, #06b6d4, #0ea5e9);
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .heading-wrapper h2::after {
+                width: 60px;
+                height: 4px;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="bg-background text-foreground antialiased selection:bg-primary selection:text-white">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-border shadow-soft">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center justify-center w-10 h-10 bg-gradient-hero rounded-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-lg font-bold text-primary">Saidia Education Centre</h1>
+                        <p class="text-xs text-muted-foreground">Foundation</p>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#home" class="nav-link text-sm font-medium text-foreground hover:text-primary transition-colors duration-300" data-section="home">Home</a>
+                    <a href="#about" class="nav-link text-sm font-medium text-foreground hover:text-primary transition-colors duration-300" data-section="about">About</a>
+                    <a href="#programs" class="nav-link text-sm font-medium text-foreground hover:text-primary transition-colors duration-300" data-section="programs">Programmes</a>
+                    <a href="#get-involved" class="nav-link text-sm font-medium text-foreground hover:text-primary transition-colors duration-300" data-section="get-involved">Support</a>
+                    <a href="#blog" class="text-sm font-medium text-foreground hover:text-primary transition-colors duration-300">Blog</a>
+                    <a href="#contact" class="nav-link text-sm font-medium text-foreground hover:text-primary transition-colors duration-300" data-section="contact">Contact Us</a>
+                </nav>
+
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#get-involved" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 border border-primary bg-background text-primary hover:bg-primary hover:text-white shadow-md transition-colors duration-300">
+                        Get Involved
+                    </a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-foreground hover:text-primary hover:bg-primary/10 transition-colors duration-300">
+                    <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                    <i data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></i>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-border bg-background">
+                <nav class="flex flex-col gap-4">
+                    <a href="#home" class="nav-link text-sm font-medium text-foreground hover:text-primary py-2" data-section="home">Home</a>
+                    <a href="#about" class="nav-link text-sm font-medium text-foreground hover:text-primary py-2" data-section="about">About</a>
+                    <a href="#programs" class="nav-link text-sm font-medium text-foreground hover:text-primary py-2" data-section="programs">Programmes</a>
+                    <a href="#get-involved" class="nav-link text-sm font-medium text-foreground hover:text-primary py-2" data-section="get-involved">Support</a>
+                    <a href="#blog" class="text-sm font-medium text-foreground hover:text-primary py-2">Blog</a>
+                    <a href="#contact" class="nav-link text-sm font-medium text-foreground hover:text-primary py-2" data-section="contact">Contact Us</a>
+                    <div class="pt-4 border-t border-border">
+                        <button class="w-full inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-9 bg-primary text-white hover:bg-primary/90">
+                           <a href="#get-involved"> Get Involved</a>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-primary text-white pt-16 pb-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            
+            <div class="space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center justify-center w-10 h-10 bg-white/10 rounded-lg">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg leading-tight">Saidia Education Centre</h3>
+                        <p class="text-xs text-blue-200">Foundation</p>
+                    </div>
+                </div>
+                
+                <p class="text-blue-100 text-sm leading-relaxed">
+                    Empowering orphans, vulnerable children, and young mothers through education, 
+                    mentorship, and community transformation in Kilifi, Kenya.
+                </p>
+
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center gap-3 text-sm text-blue-100">
+                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                        <span>Kilifi County, Kenya</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-blue-100">
+                        <i data-lucide="phone" class="w-4 h-4 flex-shrink-0"></i>
+                        <span>+254 725 943 521</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-blue-100">
+                        <i data-lucide="phone" class="w-4 h-4 flex-shrink-0"></i>
+                        <span>+447 852 046 974</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-blue-100">
+                        <i data-lucide="mail" class="w-4 h-4 flex-shrink-0"></i>
+                        <span>saidia.education@gmail.com</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-blue-100">
+                        <i data-lucide="mail" class="w-4 h-4 flex-shrink-0"></i>
+                        <span>kkck59@yahoo.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+                <ul class="space-y-4 text-sm text-blue-100">
+                    <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#programs" class="hover:text-white transition-colors">Programs</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#get-involved" class="hover:text-white transition-colors">Get Involved</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-6">Our Programs</h4>
+                <ul class="space-y-4 text-sm text-blue-100">
+                    <li><a href="#programs" class="hover:text-white transition-colors">Education Support</a></li>
+                    <li><a href="#programs" class="hover:text-white transition-colors">Young Mothers Empowerment</a></li>
+                    <li><a href="#programs" class="hover:text-white transition-colors">Mentorship Programs</a></li>
+                    <li><a href="#programs" class="hover:text-white transition-colors">Community Transformation</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Success Stories</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-6">Get Involved</h4>
+                <div class="space-y-4 mb-8">
+                    <a href="#get-involved" class="block bg-white/10 hover:bg-white/20 transition-all rounded-lg p-4 group">
+                        <div class="font-semibold mb-1 group-hover:text-white">Make a Donation</div>
+                        <div class="text-xs text-blue-200 group-hover:text-blue-100">Support our programs</div>
+                    </a>
+                    <a href="#get-involved" class="block bg-white/10 hover:bg-white/20 transition-all rounded-lg p-4 group">
+                        <div class="font-semibold mb-1 group-hover:text-white">Become a Volunteer</div>
+                        <div class="text-xs text-blue-200 group-hover:text-blue-100">Join our team</div>
+                    </a>
+                </div>
+                
+                <h4 class="font-semibold mb-4">Follow Us</h4>
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 pt-8 border-t border-white/10">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-blue-200">
+                <div>
+                    &copy; 2025 Saidia Education Centre Foundation. All rights reserved.
+                </div>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Transparency Report</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Highlight active nav link on scroll
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary', 'font-semibold');
+                link.classList.add('text-foreground');
+                
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.remove('text-foreground');
+                    link.classList.add('text-primary', 'font-semibold');
+                }
+            });
+        }
+        
+        // Update on scroll
+        window.addEventListener('scroll', updateActiveNavLink);
+        
+        // Update on page load
+        document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
+        // Mobile Menu Toggle (Updated for Lucide Icons)
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on a nav link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('.nav-link');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Tab Switching Logic (Support Section)
+        function switchTab(tabId) {
+            // Content
+            document.getElementById('tab-payment-content').classList.add('hidden');
+            document.getElementById('tab-other-content').classList.add('hidden');
+            document.getElementById(`tab-${tabId}-content`).classList.remove('hidden');
+
+            // Buttons
+            const payBtn = document.getElementById('tab-payment-btn');
+            const otherBtn = document.getElementById('tab-other-btn');
+            
+            // Reset base classes
+            const baseClass = "flex-1 inline-flex items-center justify-center py-2 text-sm font-medium rounded-md transition-all";
+            const activeClass = "bg-background text-foreground shadow-sm";
+            const inactiveClass = "text-muted-foreground hover:text-foreground";
+
+            if(tabId === 'payment') {
+                payBtn.className = `${baseClass} ${activeClass}`;
+                otherBtn.className = `${baseClass} ${inactiveClass}`;
+            } else {
+                payBtn.className = `${baseClass} ${inactiveClass}`;
+                otherBtn.className = `${baseClass} ${activeClass}`;
+            }
+        }
+
+        // Form Handling (Mock)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("Thank you! Your details have been received. We will contact you shortly.");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

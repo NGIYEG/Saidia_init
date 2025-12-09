@@ -1,0 +1,57 @@
+{% load static %}
+<section id="home" class="min-h-screen relative flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="{% static 'images/hero-education.jpg' %}" 
+                 alt="Children learning in Kilifi" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/70 to-blue-500/60"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white pt-16">
+            <div class="max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-8">
+                    <i data-lucide="heart" class="w-4 h-4"></i>
+                    <span class="text-sm font-medium"></span>
+                </div>
+
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Empowering vulnerable communities through education &
+                    <span class="bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent"> support</span>
+                </h1>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                        <div class="flex items-center justify-center mb-2">
+                            <i data-lucide="users" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold mb-1">500+</div>
+                        <div class="text-sm text-white/80">Lives Transformed</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                        <div class="flex items-center justify-center mb-2">
+                            <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold mb-1">150+</div>
+                        <div class="text-sm text-white/80">Students Supported</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                        <div class="flex items-center justify-center mb-2">
+                            <i data-lucide="heart" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold mb-1">50+</div>
+                        <div class="text-sm text-white/80">Mothers Empowered</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+                    <button class="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-11 px-8 border border-white/40 bg-transparent text-white hover:bg-white/20 hover:border-white/60 w-full sm:w-auto transition-all">
+                      <a href="#about"> Learn More</a> 
+                    </button>
+                    <button class="inline-flex items-center justify-center gap-2 rounded-xl text-lg font-semibold h-11 px-8 py-6 bg-gradient-hero text-white shadow-lg hover:scale-105 transform transition-all duration-300 w-full sm:w-auto">
+                       <a href="#get-involved">Donate Now</a> 
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>

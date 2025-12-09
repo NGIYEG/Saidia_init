@@ -1,0 +1,99 @@
+
+{% load static %}
+
+
+
+<section id="contact" class="py-20 bg-background">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <div class="heading-wrapper">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+                    Get in <span class="text-primary">Touch</span>
+                </h2>
+            </div>
+            <p class="text-muted-foreground mt-4">We'd love to hear from you.</p>
+        </div>
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-card p-8 border rounded-lg shadow-medium">
+                <form method="POST" action="{% url 'contact' %}" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <input type="text" name="firstname" required placeholder="First Name" 
+                                value="{{ form.firstname.value|default:'' }}"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+                            <input type="text" name="lastname" required placeholder="Last Name" 
+                                value="{{ form.lastname.value|default:'' }}"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+                        </div>
+                        <input type="email" name="email" required placeholder="Email Address" 
+                            value="{{ form.email.value|default:'' }}"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+                        <textarea rows="4" name="message" required placeholder="Your Message" 
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">{{ form.message.value|default:'' }}</textarea>
+                        
+                        {% if form.errors %}
+                            <div class="p-4 rounded-lg bg-red-100 text-red-700">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <button type="submit" class="w-full py-4 bg-gradient-hero text-white font-bold rounded-xl shadow-lg hover:scale-[1.01] transition">
+                            Send Message
+                        </button>
+                </form>
+            </div>
+            <div class="mt-8 text-center space-y-2 text-muted-foreground">
+                <p><i data-lucide="map-pin" class="inline w-4 h-4 mr-2"></i> Kilifi County, Kenya</p>
+                <p><i data-lucide="mail" class="inline w-4 h-4 mr-2"></i> saidia.education@gmail.com</p>
+                <p><i data-lucide="phone" class="inline w-4 h-4 mr-2"></i> +254 725 943 521</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .heading-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .heading-wrapper h2 {
+        position: relative;
+        padding-bottom: 1.5rem;
+        display: inline-block;
+    }
+
+    .heading-wrapper h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 5px;
+        background: linear-gradient(90deg, #10449D, #0ea5e9);
+        border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+        .heading-wrapper h2::after {
+            width: 60px;
+            height: 4px;
+        }
+    }
+</style>
+

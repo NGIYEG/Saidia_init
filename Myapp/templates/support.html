@@ -1,0 +1,407 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Forms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-background">
+<section id="get-involved" class="py-20 bg-background">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <div class="heading-wrapper">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                    Choose How to <span class="text-primary">Support Us</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto rounded-lg shadow-large border bg-card p-8">
+            <div class="flex bg-muted p-1 rounded-lg mb-8">
+                <button onclick="switchTab('payment')" id="tab-payment-btn" class="flex-1 inline-flex items-center justify-center py-2 text-sm font-medium rounded-md transition-all bg-background text-foreground shadow-sm">
+                    <i data-lucide="smartphone" class="w-4 h-4 mr-2"></i> Financial Support
+                </button>
+                <button onclick="switchTab('other')" id="tab-other-btn" class="flex-1 inline-flex items-center justify-center py-2 text-sm font-medium rounded-md transition-all text-muted-foreground hover:text-foreground">
+                    <i data-lucide="hand-heart" class="w-4 h-4 mr-2"></i> Other Support
+                </button>
+            </div>
+
+            <div id="tab-payment-content">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Financial Support</h3>
+                    <p class="text-muted-foreground">Support via M-Pesa, Airtel Money, or Bank</p>
+                </div>
+                
+                <!-- Payment Method Selector Tabs -->
+                <div class="flex gap-2 mb-6 bg-muted p-1 rounded-lg">
+                   <button id="tab-mpesa-btn" type="button" onclick="switchPaymentMethod('mpesa')" class="group flex-1 flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 border-transparent bg-white text-gray-700 shadow-sm hover:border-green-500/50 hover:bg-green-50/50 transition-all duration-300 ring-1 ring-gray-200"
+                        >
+                         
+                            <img 
+                                class="h-8 w-auto object-contain mix-blend-multiply" 
+                                src="{% static 'images/MPESA.png' %}" 
+                                alt="M-Pesa"
+                            >
+                    </button>
+                    <button id="tab-airtel-btn" onclick="switchPaymentMethod('airtel')" class="flex-1 px-4 py-2 rounded-md transition-all text-muted-foreground font-medium">
+                        Airtel Money
+                    </button>
+                    <button id="tab-bank-btn" onclick="switchPaymentMethod('bank')" class="flex-1 px-4 py-2 rounded-md transition-all text-muted-foreground font-medium">
+                        Bank Transfer
+                    </button>
+                </div>
+
+                <!-- M-Pesa Form -->
+                <div id="form-mpesa">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                      
+                        <div>
+                            <h4 class="font-semibold text-lg">M-Pesa Payment</h4>
+                            <p class="text-sm text-muted-foreground">Support through M-Pesa</p>
+                        </div>
+                    </div>
+                    
+                    <form method="POST" action="" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label for="phone" class="text-sm font-medium text-gray-700">Phone Number *</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        required 
+                        class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                        placeholder="07XXXXXXXX"
+                        pattern="[0-9]{10}"
+                        title="Please enter a valid 10-digit phone number">
+                    <p class="text-xs text-gray-500">Enter your phone number</p>
+                </div>
+                
+                <div class="space-y-2">
+                    <label for="amount" class="text-sm font-medium text-gray-700">Amount *</label>
+                    <input 
+                        type="number" 
+                        id="amount" 
+                        name="amount" 
+                        required 
+                        min="1" 
+                        class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                        placeholder="100">
+                    <p class="text-xs text-gray-500">Minimum amount: KES 1</p>
+                </div>
+            </div>
+            
+            <button 
+                type="submit" 
+                class="w-full inline-flex items-center justify-center rounded-xl text-lg font-semibold h-11 bg-gradient-hero text-white shadow-lg hover:scale-[1.02] transition-transform duration-200 active:scale-[0.98]">
+                Initiate Payment
+            </button>
+        </form>
+                </div>
+
+                <!-- Airtel Money Form -->
+                <div id="form-airtel" class="hidden">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                        <i data-lucide="smartphone" class="w-10 h-10 text-red-600"></i>
+                        <div>
+                            <h4 class="font-semibold text-lg">Airtel Money Payment</h4>
+                            <p class="text-sm text-muted-foreground">Pay using Airtel Money</p>
+                        </div>
+                    </div>
+                    
+                    <form onsubmit="handleAirtelSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium">Phone Number *</label>
+                                <input type="tel" id="airtel-phone" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="07XXXXXXXX">
+                                <p class="text-xs text-muted-foreground">Enter your Airtel number</p>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium">Amount (KES) *</label>
+                                <input type="number" id="airtel-amount" required min="1" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="100">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl text-lg font-semibold h-11 bg-gradient-hero text-white shadow-lg hover:scale-[1.02] transition-transform">
+                            Send Airtel Money Push
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Bank Transfer Form -->
+                <div id="form-bank" class="hidden">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                        <i data-lucide="credit-card" class="w-10 h-10 text-primary"></i>
+                        <div>
+                            <h4 class="font-semibold text-lg">Bank Transfer</h4>
+                            <p class="text-sm text-muted-foreground">Transfer funds via bank</p>
+                        </div>
+                    </div>
+                    
+                    <form onsubmit="handleBankSubmit(event)" class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium">Full Name *</label>
+                            <input type="text" id="bank-name" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="John Doe">
+                            <p class="text-xs text-muted-foreground">Name as it appears on your bank account</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium">Phone Number *</label>
+                                <input type="tel" id="bank-phone" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="07XXXXXXXX">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium">Amount (KES) *</label>
+                                <input type="number" id="bank-amount" required min="1" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="100">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium">Bank Name *</label>
+                            <select id="bank-name-select" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="">Select your bank</option>
+                                <option value="equity">Equity Bank</option>
+                                <option value="kcb">KCB Bank</option>
+                                <option value="coop">Co-operative Bank</option>
+                                <option value="absa">Absa Bank</option>
+                                <option value="ncba">NCBA Bank</option>
+                                <option value="stanbic">Stanbic Bank</option>
+                                <option value="standard">Standard Chartered</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl text-lg font-semibold h-11 bg-gradient-hero text-white shadow-lg hover:scale-[1.02] transition-transform">
+                            Initiate Bank Transfer
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="tab-other-content" class="hidden">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Volunteer or Pledge</h3>
+                    <p class="text-muted-foreground">Make a pledge or offer your skills</p>
+                </div>
+                <form onsubmit="handleFormSubmit(event)" class="space-y-6">
+                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <label class="flex items-center space-x-2 p-4 border rounded-lg cursor-pointer hover:border-primary transition-colors">
+                            <input type="radio" name="support" value="pledge" checked>
+                            <span class="flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4 text-red-500"></i> Pledge</span>
+                        </label>
+                        <label class="flex items-center space-x-2 p-4 border rounded-lg cursor-pointer hover:border-primary transition-colors">
+                            <input type="radio" name="support" value="volunteer">
+                            <span class="flex items-center gap-2"><i data-lucide="users" class="w-4 h-4 text-blue-500"></i> Volunteer</span>
+                        </label>
+                         <label class="flex items-center space-x-2 p-4 border rounded-lg cursor-pointer hover:border-primary transition-colors">
+                            <input type="radio" name="support" value="donation">
+                            <span class="flex items-center gap-2"><i data-lucide="gift" class="w-4 h-4 text-yellow-500"></i> In-Kind</span>
+                        </label>
+                    </div>
+                    <div class="space-y-2">
+                         <label class="text-sm font-medium">Description</label>
+                         <textarea class="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Tell us how you want to help..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl text-lg font-semibold h-11 bg-gradient-hero text-white shadow-lg hover:scale-[1.02] transition-transform">
+                        Submit Offer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+             <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+                <i data-lucide="hand-heart" class="w-4 h-4 text-primary"></i>
+                <span class="text-sm font-medium text-primary">Partner With Us</span>
+            </div>
+            <div class="heading-wrapper">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                    Join Our <span class="text-primary">Mission</span>
+                </h2>
+            </div>
+        </div>
+        <div class="max-w-4xl mx-auto p-8 shadow-large border bg-card rounded-lg">
+            <form onsubmit="handleFormSubmit(event)" class="space-y-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-6">How would you like to support?</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
+                            <input type="checkbox" class="h-4 w-4 rounded border-primary text-primary mt-1">
+                            <span class="text-sm font-medium">Financial Support</span>
+                        </label>
+                        <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
+                            <input type="checkbox" class="h-4 w-4 rounded border-primary text-primary mt-1">
+                            <span class="text-sm font-medium">Mentorship</span>
+                        </label>
+                        <label class="flex items-start space-x-3 p-4 border rounded-lg hover:border-primary transition cursor-pointer">
+                            <input type="checkbox" class="h-4 w-4 rounded border-primary text-primary mt-1">
+                            <span class="text-sm font-medium">Child Sponsorship</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <input type="text" placeholder="First Name" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+                    <input type="text" placeholder="Last Name" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+                    <input type="email" placeholder="Email" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+                    <input type="tel" placeholder="Phone" class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center">
+                        Send Message <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    .heading-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .heading-wrapper h2 {
+        position: relative;
+        padding-bottom: 1.5rem;
+        display: inline-block;
+    }
+
+    .heading-wrapper h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 5px;
+        background: linear-gradient(90deg, #10449D, #0ea5e9);
+        border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+        .heading-wrapper h2::after {
+            width: 60px;
+            height: 4px;
+        }
+    }
+</style>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        function switchPaymentMethod(method) {
+            // Hide all forms
+            document.getElementById('form-mpesa').classList.add('hidden');
+            document.getElementById('form-airtel').classList.add('hidden');
+            document.getElementById('form-bank').classList.add('hidden');
+            
+            // Reset all buttons
+            document.getElementById('tab-mpesa-btn').classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+            document.getElementById('tab-mpesa-btn').classList.add('text-muted-foreground');
+            document.getElementById('tab-airtel-btn').classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+            document.getElementById('tab-airtel-btn').classList.add('text-muted-foreground');
+            document.getElementById('tab-bank-btn').classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+            document.getElementById('tab-bank-btn').classList.add('text-muted-foreground');
+            
+            // Show selected form and activate button
+            if (method === 'mpesa') {
+                document.getElementById('form-mpesa').classList.remove('hidden');
+                document.getElementById('tab-mpesa-btn').classList.add('bg-background', 'text-foreground', 'shadow-sm');
+                document.getElementById('tab-mpesa-btn').classList.remove('text-muted-foreground');
+            } else if (method === 'airtel') {
+                document.getElementById('form-airtel').classList.remove('hidden');
+                document.getElementById('tab-airtel-btn').classList.add('bg-background', 'text-foreground', 'shadow-sm');
+                document.getElementById('tab-airtel-btn').classList.remove('text-muted-foreground');
+            } else if (method === 'bank') {
+                document.getElementById('form-bank').classList.remove('hidden');
+                document.getElementById('tab-bank-btn').classList.add('bg-background', 'text-foreground', 'shadow-sm');
+                document.getElementById('tab-bank-btn').classList.remove('text-muted-foreground');
+            }
+            
+            // Re-initialize icons after DOM changes
+            lucide.createIcons();
+        }
+        
+        function switchTab(tab) {
+            const paymentContent = document.getElementById('tab-payment-content');
+            const otherContent = document.getElementById('tab-other-content');
+            const paymentBtn = document.getElementById('tab-payment-btn');
+            const otherBtn = document.getElementById('tab-other-btn');
+            
+            if (tab === 'payment') {
+                paymentContent.classList.remove('hidden');
+                otherContent.classList.add('hidden');
+                paymentBtn.classList.add('bg-background', 'text-foreground', 'shadow-sm');
+                paymentBtn.classList.remove('text-muted-foreground');
+                otherBtn.classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+                otherBtn.classList.add('text-muted-foreground');
+            } else {
+                paymentContent.classList.add('hidden');
+                otherContent.classList.remove('hidden');
+                otherBtn.classList.add('bg-background', 'text-foreground', 'shadow-sm');
+                otherBtn.classList.remove('text-muted-foreground');
+                paymentBtn.classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+                paymentBtn.classList.add('text-muted-foreground');
+            }
+            
+            // Re-initialize icons after DOM changes
+            lucide.createIcons();
+        }
+        
+        function handleMpesaSubmit(event) {
+            event.preventDefault();
+            const phone = document.getElementById('mpesa-phone').value;
+            const amount = document.getElementById('mpesa-amount').value;
+            
+            console.log('M-Pesa Payment:', { phone, amount });
+            alert(`M-Pesa payment initiated!\nPhone: ${phone}\nAmount: KES ${amount}`);
+            // Add your M-Pesa payment logic here
+        }
+        
+        function handleAirtelSubmit(event) {
+            event.preventDefault();
+            const phone = document.getElementById('airtel-phone').value;
+            const amount = document.getElementById('airtel-amount').value;
+            
+            console.log('Airtel Money Payment:', { phone, amount });
+            alert(`Airtel Money payment initiated!\nPhone: ${phone}\nAmount: KES ${amount}`);
+            // Add your Airtel Money payment logic here
+        }
+        
+        function handleBankSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('bank-name').value;
+            const phone = document.getElementById('bank-phone').value;
+            const amount = document.getElementById('bank-amount').value;
+            const bank = document.getElementById('bank-name-select').value;
+            
+            console.log('Bank Transfer:', { name, phone, amount, bank });
+            alert(`Bank transfer initiated!\nName: ${name}\nPhone: ${phone}\nAmount: KES ${amount}\nBank: ${bank}`);
+            // Add your bank transfer logic here
+        }
+        
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            console.log('Form submitted');
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
