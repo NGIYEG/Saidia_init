@@ -22,7 +22,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b7joem2h12mj5=lg9o9^)jb5ssnaw!$f$0@rej6!ltzobj37(3'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -59,7 +60,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'SED.urls'
 
 TAILWIND_APP_NAME = "theme"
-NPM_BIN_PATH="C:/Program Files/nodejs/npm.cmd"
+# NPM_BIN_PATH="C:/Program Files/nodejs/npm.cmd"
 
 TEMPLATES = [
     {
@@ -140,3 +141,4 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
